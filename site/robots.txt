@@ -1,0 +1,8 @@
+# プレビュー公開中のため、検索エンジンには載せない。
+# 本番公開時は、この2行を消して sitemap の行を有効にする。
+User-agent: *
+Disallow: /
+
+# User-agent: *
+# Allow: /
+# Sitemap: https://example.com/sitemap.xml

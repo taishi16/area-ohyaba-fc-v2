@@ -1,0 +1,17 @@
+﻿key,value,note
+club_name,AREA OHYABA FC,クラブ名
+club_name_ja,Area大谷場,日本語表記
+tagline,CONSISTENCY BREEDS CHAMPIONS,クラブ既存のキャッチコピー
+founded,2019,
+home_ground,大谷場グラウンド（さいたま市南区）,
+league,埼玉県3部南部地区リーグ,現在所属リーグ。変わったらここを直す
+instagram_url,https://www.instagram.com/area.ohyaba/,
+x_url,,空にするとXのリンクを表示しない
+contact_instagram,TRUE,問い合わせをInstagram DMへ誘導するか
+contact_email,,入れるとメールリンクを表示する
+preview_mode,TRUE,TRUEの間はプレビュー用の帯を表示する。本番公開時にFALSE
+show_birthday,TRUE,選手の生年月日を公開するか
+show_height,TRUE,選手の身長を公開するか
+show_weight,TRUE,選手の体重を公開するか
+show_career,TRUE,選手の経歴を公開するか
+show_players_top,TRUE,TOPに選手セクションを出すか

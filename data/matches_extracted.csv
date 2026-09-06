@@ -1,0 +1,11 @@
+﻿match_id,date,kickoff_time,competition,opponent,home_away,venue,area_score,opponent_score,status,note
+M001,2023/03/12,,さいたま市北部(1部) 第1節,NSM,,,2,1,finished,
+M002,2023/03/19,,さいたま市北部(1部) 第2節,SAITAMA CITY FC,,,6,1,finished,
+M003,2023/04/09,,さいたま市北部(1部) 第3節,AS ROBS,,,5,0,finished,
+M004,2023/05/07,,さいたま市北部(1部) 第4節,下落合FC,,,,,cancelled,延期
+M005,2023/05/21,,さいたま市北部(1部) 第5節,モリタ東京製作所,,,,,cancelled,延期
+M006,2023/06/04,,さいたま市北部(1部) 第6節,マスターズ,,,,,cancelled,延期
+M007,2023/06/18,,さいたま市北部(1部) 第7節,NS SAITAMA,,,,,scheduled,vs
+M008,2023/07/02,,さいたま市北部(1部) 第8節,FC ARAO,,,,,scheduled,vs
+M009,2023/07/09,,さいたま市北部(1部) 第9節,KS UNITED SC,,,,,scheduled,vs
+M010,2023/07/23,,さいたま市北部(1部) 第10節,バストエイリアンズ,,,,,scheduled,vs
