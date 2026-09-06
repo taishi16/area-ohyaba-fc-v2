@@ -33,11 +33,12 @@ crop_webp "$SRC/slide7.jpg" "$OUT/hero/ogp.webp" 1200 630 80
 ffmpeg -y -hide_banner -loglevel error -i "$SRC/slide7.jpg" \
   -vf "scale=1200:630:force_original_aspect_ratio=increase:flags=lanczos,crop=1200:630" -q:v 4 "$OUT/hero/ogp.jpg"
 
-echo "--- クラブ写真 ---"
-for f in slide6:away slide4:community about_us_top:story fixtures_top_2023:squad; do
+echo "--- クラブ写真（切り抜きなし・元の縦横比のまま） ---"
+# 集合写真・記録写真は人物や全体像が欠けるため、cropせず縮小だけ行う
+for f in slide6:team slide4:community news_2019_article_001_3:matsuri fixtures_top_2023:keyvisual2023; do
   s="${f%%:*}"; d="${f##*:}"
-  crop_webp "$SRC/$s.jpg" "$OUT/club/$d-1200.webp" 1200 800 76
-  crop_webp "$SRC/$s.jpg" "$OUT/club/$d-640.webp"   640 427 76
+  webp "$SRC/$s.jpg" "$OUT/club/$d-1200.webp" 1200 78
+  webp "$SRC/$s.jpg" "$OUT/club/$d-640.webp"   640 78
 done
 webp "$SRC/mobile_top.jpg" "$OUT/club/tagline-800.webp" 800 78
 

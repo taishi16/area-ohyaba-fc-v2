@@ -284,6 +284,7 @@
     var bits = [];
     if (m.venue) bits.push("<span>📍 " + esc(m.venue) + "</span>");
     if (m.home_away) bits.push("<span>" + (m.home_away === "HOME" ? "🏠 ホーム" : "✈️ アウェイ") + "</span>");
+    if (m.status_label) bits.push("<span>⚠ " + esc(m.status_label) + "</span>");
     if (m.note) bits.push("<span>" + esc(m.note) + "</span>");
     if (bits.length) { foot.innerHTML = bits.join(""); card.appendChild(foot); }
     return card;
@@ -292,12 +293,18 @@
   function matchRow(m) {
     var row = el("article", "mrow");
     var oc = outcome(m);
-    var right = m.status === "finished"
-      ? '<span class="mrow__sc">' + esc(m.area_score) + " - " + esc(m.opponent_score) + "</span>" +
-        (oc ? '<span class="mcard__badge badge--' + oc.toLowerCase() + '">' + (oc === "W" ? "WIN" : oc === "L" ? "LOSE" : "DRAW") + "</span>" : "")
-      : m.status === "cancelled"
-        ? '<span class="mrow__st">中止・延期</span>'
-        : '<span class="mrow__sc">VS</span><span class="mrow__st">' + (m.kickoff_time ? esc(m.kickoff_time) + " KO" : "予定") + "</span>";
+    var right;
+    if (m.status === "finished") {
+      right = '<span class="mrow__sc">' + esc(m.area_score) + " - " + esc(m.opponent_score) + "</span>" +
+        (oc ? '<span class="mcard__badge badge--' + oc.toLowerCase() + '">' + (oc === "W" ? "WIN" : oc === "L" ? "LOSE" : "DRAW") + "</span>" : "");
+    } else if (m.status === "cancelled") {
+      right = '<span class="mrow__st">' + esc(m.status_label || "中止・延期") + "</span>";
+    } else if (m._d < today0()) {
+      // 日付は過ぎているのに得点が入っていない試合（スプレッドシートへの入力待ち）
+      right = '<span class="mrow__st">結果未入力</span>';
+    } else {
+      right = '<span class="mrow__sc">VS</span><span class="mrow__st">' + (m.kickoff_time ? esc(m.kickoff_time) + " KO" : "予定") + "</span>";
+    }
     row.innerHTML =
       '<div class="mrow__date">' + fmtMD(m._d) + "<small>" + m._d.getFullYear() + " (" + dow(m._d) + ")</small></div>" +
       '<div class="mrow__main"><div class="mrow__opp">' + esc(m.opponent || "未定") +

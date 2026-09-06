@@ -76,10 +76,10 @@ h1,h2,h3,h4,p,figure{margin:0}
 .section--dark .shead__ja,.section--ink .shead__ja{color:var(--text-inv-2)}
 .shead__en::after{
   content:"";display:block;width:44px;height:4px;margin-top:10px;
-  background:linear-gradient(90deg,var(--blue) 0 60%,var(--nadeshiko) 60% 100%);
+  background:linear-gradient(90deg,var(--blue) 0 62%,var(--gold) 62% 100%);
 }
 .section--dark .shead__en::after,.section--ink .shead__en::after{
-  background:linear-gradient(90deg,var(--blue-lt) 0 60%,var(--nadeshiko) 60% 100%);
+  background:linear-gradient(90deg,var(--blue-lt) 0 62%,var(--gold) 62% 100%);
 }
 
 /* リンクボタン */
@@ -161,7 +161,9 @@ h1,h2,h3,h4,p,figure{margin:0}
 }
 .drawer a .en{font-family:var(--display);font-size:24px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
 .drawer a .ja{font-size:12px;color:var(--text-inv-2)}
+.drawer a[aria-current="page"]{box-shadow:inset 3px 0 0 var(--gold)}
 .drawer a[aria-current="page"] .en{color:var(--gold)}
+.drawer a[aria-current="page"]{padding-left:14px}
 .drawer__social{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
 
 /* ---------- 6. ヒーロー ---------- */
@@ -236,8 +238,8 @@ h1,h2,h3,h4,p,figure{margin:0}
 .mcard__foot span{display:inline-flex;align-items:center;gap:5px}
 .mcard__empty{padding:26px 16px;text-align:center;color:var(--text-2);font-size:13.5px}
 .tag-sample{
-  background:var(--gold);color:#2b2200;font-size:10px;font-weight:800;
-  letter-spacing:.1em;padding:2px 7px;border-radius:4px;flex:none;
+  background:#e8ecf1;color:#4a5563;border:1px solid #c6d0db;
+  font-size:10px;font-weight:800;letter-spacing:.1em;padding:1px 7px;border-radius:4px;flex:none;
 }
 
 /* 試合リスト（行） */
@@ -261,7 +263,7 @@ h1,h2,h3,h4,p,figure{margin:0}
   min-height:36px;padding:0 15px;border-radius:999px;border:1.5px solid var(--line);
   background:#fff;font-size:13px;font-weight:700;color:var(--text-2);display:inline-flex;align-items:center;
 }
-.chip[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--ink)}
 
 /* ---------- 8. LATEST ACTIVITY (Instagram) ---------- */
 .ig-grid{display:grid;gap:14px}
@@ -357,7 +359,7 @@ h1,h2,h3,h4,p,figure{margin:0}
 .modal__kn{font-size:11.5px;color:var(--text-inv-2);letter-spacing:.08em}
 .modal__pos{
   position:absolute;right:16px;bottom:16px;z-index:2;font-family:var(--display);
-  font-size:15px;font-weight:700;letter-spacing:.1em;background:var(--nadeshiko);color:#fff;
+  font-size:15px;font-weight:700;letter-spacing:.1em;background:var(--gold);color:var(--ink);
   padding:5px 12px;border-radius:6px;
 }
 .dl{display:grid;grid-template-columns:86px 1fr;gap:0;margin:0;padding:4px 18px 0}
@@ -515,7 +517,7 @@ h1,h2,h3,h4,p,figure{margin:0}
     color:var(--text-inv-2);transition:.15s;
   }
   .hd__nav a:hover{color:#fff;background:rgba(255,255,255,.08)}
-  .hd__nav a[aria-current="page"]{color:#fff;box-shadow:inset 0 -3px 0 var(--nadeshiko)}
+  .hd__nav a[aria-current="page"]{color:#fff;box-shadow:inset 0 -3px 0 var(--gold)}
   .hd__ig{display:inline-flex;margin-left:8px}
   .burger,.drawer{display:none}
   .pgrid{grid-template-columns:repeat(5,1fr)}

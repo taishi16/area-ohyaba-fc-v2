@@ -41,14 +41,17 @@ area-ohyaba-fc-v2/
 │   ├── assets/js/app.js      データ取得・自動振り分け・描画
 │   ├── assets/img/           最適化済み画像（WebP）
 │   └── data/site-data.json   同梱データ（スプレッドシートが読めないときの控え）
-├── sheets/                   Googleスプレッドシートにそのまま取り込めるCSV
+├── sheets/
+│   ├── AREA_OHYABA_FC_サイトデータ.xlsx  ★ドライブにアップするだけで7シートが揃う
+│   └── 試合/ニュース/選手/…​.csv          各シートの元データ
 ├── gas/Code.gs               Googleスプレッドシート → JSON 配信スクリプト
 ├── data/                     現行サイトから抽出した元データ（CSV）
 ├── docs/PHASE0_REPORT.md     現行サイト調査レポート
 ├── tools/                    画像最適化・データ生成・公開スクリプト
 ├── BACKUP/                   現行サイトの完全バックアップ（Gitには含めない・ローカル保持）
 ├── CONTENT_UPDATE_GUIDE.md   ★ 更新マニュアル（クラブ運営者向け）
-└── MIGRATION.md              本番切替の手順
+├── SHEET_SETUP.md            スプレッドシート接続の手順（利用者作業15〜20分）
+└── MIGRATION.md              本番切替の手順（Cloudflare Pages を第一候補）
 ```
 
 ---
@@ -63,13 +66,17 @@ area-ohyaba-fc-v2/
 ### データの流れ
 
 ```
-Googleスプレッドシート（7シート）
-      ↓ Google Apps Script（公開する列だけを選んでJSONにする）
+Googleスプレッドシート（日本語の7シート：試合 / ニュース / 選手 / スタッフ /
+                        スポンサー / Instagram / 設定）
+      ↓ Google Apps Script（公開する列だけを選び、状態を自動判定してJSONにする）
       ↓ fetch（5分間だけブラウザに記憶）
    ホームページ（日付・状態を見て自動で振り分けて描画）
       ↓ 読めなかったとき
    site/data/site-data.json（同梱データ）
 ```
+
+**試合の状態は入力しません。** 得点が両方入っていれば「終了」、入っていなければ「予定」と
+自動判定します。「延期」「中止」のときだけ状態欄を選びます。
 
 `site/assets/js/config.js` の `AO_API_URL` が空の間は、同梱データだけで動きます。
 
@@ -84,6 +91,9 @@ tools/optimize_images.sh
 # sheets/*.csv から同梱データを作り直す
 python3 tools/build_data.py
 
+# 取り込み用のxlsx（7シート）を作り直す
+/home/taishi/sss-agent/.venv/bin/python3 tools/make_xlsx.py
+
 # 手元で表示を確認する
 cd site && python3 -m http.server 8899
 
@@ -97,13 +107,15 @@ tools/deploy_preview.sh
 
 | 表示場所 | 条件 |
 |---|---|
-| NEXT MATCH | 今日以降 かつ `status = scheduled` のうち、いちばん近い1試合 |
-| LAST MATCH | `status = finished` のうち、いちばん新しい1試合 |
-| RESULTS | `status = finished` を新しい順 |
+| 試合の状態 | 得点が両方入力済み→終了 ／ 未入力→予定 ／「延期」「中止」を選んだとき→中止扱い |
+| NEXT MATCH | 今日以降 かつ「予定」のうち、いちばん近い1試合 |
+| LAST MATCH | 終了した試合のうち、いちばん新しい1試合 |
+| RESULTS | 終了した試合を新しい順 |
 | SCHEDULE | 今日以降の未実施試合を近い順 |
 | 年度切替 | 登録された試合の日付から自動生成（年度が増えてもページは増えません） |
-| NEWS | `published = TRUE` を日付の新しい順 |
-| PLAYERS / STAFF / SPONSORS | `active = TRUE` のみ、`display_order` 順 |
+| NEWS | 「公開」を日付の新しい順 |
+| PLAYERS / STAFF / SPONSORS | 「表示する」のみ、「並び順」順 |
+| 結果未入力の警告 | 日付が過ぎたのに得点が空の試合に「結果未入力」と表示 |
 | 勝敗表示 | 得点から WIN / DRAW / LOSE を自動判定 |
 
 ---
