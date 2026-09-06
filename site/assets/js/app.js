@@ -417,17 +417,20 @@
         '<blockquote class="instagram-media" data-instgrm-permalink="' + esc(permalink) +
         '" data-instgrm-version="14" style="margin:0;width:100%;min-width:0;border:0"></blockquote>';
       host.appendChild(slot);
-      // 埋め込みが表示されないときは、投稿へのリンクカードへ切り替える
+      // 埋め込みが表示されない・中身が空のままのときは、投稿へのリンクカードへ切り替える
+      // （通信環境やブラウザの設定でInstagramが読み込めない場合の保険）
       setTimeout(function () {
-        if (!slot.querySelector("iframe")) {
+        var f = slot.querySelector("iframe");
+        var h = f ? f.getBoundingClientRect().height : 0;
+        if (!f || h < 150) {
           slot.innerHTML =
             '<div class="ig-fallback">' +
               '<div class="ig-fallback__t">Instagramの最新投稿</div>' +
-              '<div class="ig-fallback__d">ここに投稿が表示されない場合は、下のボタンから直接ご覧ください。</div>' +
+              '<div class="ig-fallback__d">投稿がここに表示されない場合は、下のボタンからご覧ください。</div>' +
               '<a class="btn btn--ig btn--sm" href="' + esc(permalink) + '" target="_blank" rel="noopener">' + IG_SVG + "投稿を見る</a>" +
             "</div>";
         }
-      }, 4500);
+      }, 9000);
     });
     // 画面に入ったときだけ読み込む（初期表示を軽くする）
     if ("IntersectionObserver" in window) {
